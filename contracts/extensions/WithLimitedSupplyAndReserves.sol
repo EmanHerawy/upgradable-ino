@@ -8,7 +8,7 @@ import './WithLimitedSupply.sol';
 abstract contract WithLimitedSupplyAndReserves is WithLimitedSupply {
     uint256 internal _totalReserveSupply;
 
-    uint256 private  _reserved;
+    uint256 private _reserved;
 
     modifier isWithinCapLimit(uint256 _numberOfNFTs) override {
         require((tokenCount() + _numberOfNFTs) <= (maxSupply() - _reserved), 'Purchase exceeds max supply');
@@ -21,7 +21,7 @@ abstract contract WithLimitedSupplyAndReserves is WithLimitedSupply {
 
     /// Instanciate the contract
     /// @param reserved_ how many tokens this collection should reserved by the team
-    function _withLimitedSupplyAndReserves_init( uint256 reserved_) internal  {
+    function _withLimitedSupplyAndReserves_init(uint256 reserved_) internal {
         _reserved = reserved_;
     }
 

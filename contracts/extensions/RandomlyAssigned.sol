@@ -10,13 +10,11 @@ abstract contract RandomlyAssigned is WithLimitedSupplyAndReserves {
     mapping(uint256 => uint256) private tokenMatrix;
 
     // The initial token ID
-    uint256 private  startFrom;
+    uint256 private startFrom;
 
     /// Instanciate the contract
-     /// @param _startFrom the tokenID with which to start counting
-    function _randomlyAssigned_init(
-         uint256 _startFrom
-     ) internal {
+    /// @param _startFrom the tokenID with which to start counting
+    function _randomlyAssigned_init(uint256 _startFrom) internal {
         startFrom = _startFrom;
     }
 

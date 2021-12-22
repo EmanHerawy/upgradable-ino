@@ -6,6 +6,8 @@ import "hardhat-docgen";
 import "hardhat-gas-reporter";
 import "./tasks/accounts";
 import "@nomiclabs/hardhat-etherscan";
+import "@openzeppelin/hardhat-upgrades";
+
 const fs = require('fs');
 const privateKey = fs.readFileSync("privateKey.secret").toString().trim();
 const alchemyKey = fs.readFileSync("alchemyKey.secret").toString().trim();
@@ -18,6 +20,7 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       saveDeployments: true,
+         gasPrice: 5 * 1000000000,
     },
     localhost: {
       url: 'http://127.0.0.1:8545',

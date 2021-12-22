@@ -20,7 +20,7 @@ abstract contract ERC721Permit is IERC721Permit {
     bytes32 public constant TRANSFER_TYPEHASH =
         keccak256('Transfer(address owner,address to,uint256 tokenId,uint256 nonce,uint256 deadline)');
 
-    function _eRC721Permit_init(string memory name) internal{
+    function _eRC721Permit_init(string memory name) internal {
         uint256 chainId;
         assembly {
             chainId := chainid()

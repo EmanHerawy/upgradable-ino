@@ -31,7 +31,7 @@ contract WithEthPayment is ReentrancyGuardUpgradeable {
 
     // modifier
     /******************************************* constructor goes here ********************************************************* */
-    function _withEthPayment_init(address[] memory wallets_) internal{
+    function _withEthPayment_init(address[] memory wallets_) internal {
         _wallets = wallets_;
     }
 

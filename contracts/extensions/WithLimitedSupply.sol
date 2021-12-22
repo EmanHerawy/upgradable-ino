@@ -12,7 +12,7 @@ abstract contract WithLimitedSupply {
     CountersUpgradeable.Counter private _tokenCount;
 
     /// @dev The maximum count of tokens this token tracker will hold.
-    uint256 private  _maxSupply;
+    uint256 private _maxSupply;
 
     modifier isWithinCapLimit(uint256 _numberOfNFTs) virtual {
         require((tokenCount() + _numberOfNFTs) <= _maxSupply, 'Purchase exceeds max supply');
@@ -33,7 +33,7 @@ abstract contract WithLimitedSupply {
 
     /// Instanciate the contract
     /// @param totalSupply_ how many tokens this collection should hold
-   function _withLimitedSupply_init(uint256 totalSupply_) internal {
+    function _withLimitedSupply_init(uint256 totalSupply_) internal {
         _maxSupply = totalSupply_;
     }
 

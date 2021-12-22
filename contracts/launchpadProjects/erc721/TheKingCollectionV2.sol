@@ -24,7 +24,7 @@ import '../../extensions/PausableNFT.sol';
 /// @title  TheKingCollection With Eth contract
 //
 
-contract TheKingCollection is
+contract TheKingCollectionV2 is
     Initializable,
     UUPSUpgradeable,
     ERC721EnumerableUpgradeable,
@@ -44,32 +44,23 @@ contract TheKingCollection is
 
     // tokenID => timestamp
     mapping(uint256 => uint256) private _tokenRevealTime;
+    address public whatever;
 
     // event
 
     // modifier
     /******************************************* constructor goes here ********************************************************* */
 
-    function initialize(
-        string memory baseTokenURI_,
-        uint256 startTimeSale_,
-        uint256 mintPrice_,
-        uint256 maxSupply_,
-        uint256 revealTime_,
-        uint256 reserved_,
-        address[] memory wallets_,
-        address owner_
-    ) external initializer {
-        __Ownable_init();
-        // _transferOwnership(owner_);
-        __ERC721_init('The King Vidal Collection', 'KVC');
-        _collection_init(baseTokenURI_, mintPrice_, revealTime_);
-        _randomlyAssigned_init(0);
-        _withEthPayment_init(wallets_);
-        _pausableNFT_init(owner_);
-        _withStartTime_init(startTimeSale_);
-        _withLimitedSupply_init(maxSupply_);
-        _withLimitedSupplyAndReserves_init(reserved_);
+    function initialize(address whatever_) external initializer {
+        // __ERC721_init('The King Vidal Collection', 'KVC');
+        // _collection_init(baseTokenURI_, mintPrice_, revealTime_);
+        // _randomlyAssigned_init(0);
+        // _withEthPayment_init(wallets_);
+        // _pausableNFT_init(owner_);
+        // _withStartTime_init(startTimeSale_);
+        // _withLimitedSupply_init(maxSupply_);
+        // _withLimitedSupplyAndReserves_init(reserved_);
+        whatever = whatever_;
     }
 
     function _authorizeUpgrade(address) internal override onlyOwner {}
@@ -194,5 +185,13 @@ contract TheKingCollection is
      */
     function withdraw() external onlyOwner {
         _withdraw();
+    }
+
+    function setWhatever(address whatever_) external onlyOwner {
+        whatever = whatever_;
+    }
+
+    function getWhatever() external view returns (address) {
+        return whatever;
     }
 }
