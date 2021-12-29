@@ -21,23 +21,32 @@ import '@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.
 contract WithEthPayment is ReentrancyGuardUpgradeable {
     /**************************libraries ********** */
     using AddressUpgradeable for address payable;
+    uint256 private _mintPrice;
+
     /***************************Declarations go here ********** */
     // stat var
 
     address[] private _wallets;
 
     // event
+    event UpdateMintPrice(uint256 newParice);
     event Withdrawn(address payee, uint256 amount);
 
     // modifier
     /******************************************* constructor goes here ********************************************************* */
-    function _withEthPayment_init(address[] memory wallets_) internal {
+
+    function _withEthPayment_init(address[] memory wallets_, uint256 mintPrice_) internal {
         _wallets = wallets_;
+        _mintPrice = mintPrice_;
     }
 
     /******************************************* read state functions go here ********************************************************* */
 
     /******************************************* modify state functions go here ********************************************************* */
+
+    function mintPrice() public view returns (uint256) {
+        return _mintPrice;
+    }
 
     function getWallets() external view returns (address[] memory) {
         return _wallets;
@@ -59,5 +68,11 @@ contract WithEthPayment is ReentrancyGuardUpgradeable {
             emit Withdrawn(_wallets[index], share);
             payable(_wallets[index]).sendValue(share);
         }
+    }
+
+    function _setMintPrice(uint256 mintPrice_) internal {
+        require(mintPrice_ > 0, 'Zero value is not allowed');
+        _mintPrice = mintPrice_;
+        emit UpdateMintPrice(mintPrice_);
     }
 }

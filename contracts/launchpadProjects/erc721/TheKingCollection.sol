@@ -37,7 +37,6 @@ contract TheKingCollection is
     using StringsUpgradeable for uint256;
     /***************************Declarations go here ********** */
     // stat var
-    uint256 public mintPrice;
     uint256 public revealTime;
 
     string private _baseTokenURI;
@@ -63,9 +62,9 @@ contract TheKingCollection is
         __Ownable_init();
         // _transferOwnership(owner_);
         __ERC721_init('The King Vidal Collection', 'KVC');
-        _collection_init(baseTokenURI_, mintPrice_, revealTime_);
+        _collection_init(baseTokenURI_, revealTime_);
         _randomlyAssigned_init(0);
-        _withEthPayment_init(wallets_);
+        _withEthPayment_init(wallets_, mintPrice_);
         _pausableNFT_init(owner_);
         _withStartTime_init(startTimeSale_);
         _withLimitedSupply_init(maxSupply_);
@@ -74,13 +73,8 @@ contract TheKingCollection is
 
     function _authorizeUpgrade(address) internal override onlyOwner {}
 
-    function _collection_init(
-        string memory baseTokenURI_,
-        uint256 mintPrice_,
-        uint256 revealTime_
-    ) private {
+    function _collection_init(string memory baseTokenURI_, uint256 revealTime_) private {
         _baseTokenURI = baseTokenURI_;
-        mintPrice = mintPrice_;
         revealTime = revealTime_;
     }
 
@@ -159,7 +153,7 @@ contract TheKingCollection is
     /// emit Transfer
     function mint(uint256 _numberOfNFTs) external payable whenNotPaused isSaleStarted {
         require(_numberOfNFTs > 0, 'invalid_amount');
-        require(mintPrice * _numberOfNFTs <= msg.value, 'ETH value not correct');
+        require(mintPrice() * _numberOfNFTs <= msg.value, 'ETH value not correct');
         _batchMint(_msgSender(), _numberOfNFTs);
     }
 
